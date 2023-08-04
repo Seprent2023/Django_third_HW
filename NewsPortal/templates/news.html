@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends 'flatpages/default.html' %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        News
+        {% endblock title%}
+    </title>
+</head>
+<body>
+{% block content %}
+    <h1>Все новости</h1>
+    <h3>Всего новостей: {{ news|length }}</h3>
+    <h3> {{ next_sale|default_if_none:"Чуть позже сообщим о новостях!" }} </h3>
+
+    <hr>
+    {% if news %}
+        <table>
+            <tr>
+                <th>Заголовок</th>
+                <th>Время публикации</th>
+                <th>Превью</th>
+            </tr>
+            {% for n in news %}
+            <tr>
+                <td>{{ n.headline }}</td>
+                <td>{{ n.time_in|date:'d M Y'  }}</td>
+                <td>{{ n.preview }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет! Вообще нет!</h2>
+    {% endif %}
+{% endblock content%}
+</body>
+</html>
